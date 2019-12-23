@@ -6,8 +6,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--load", help="The file to load the config from")
     parser.add_argument("-s", "--save", help="The file to save the config to")
+    parser.add_argument("-p", "--path", help="The path to change folder icons in")
     parser.add_argument("-c", "--clean", help="Strip all custom icons from folders before applying new ones", action="store_true")
     args = parser.parse_args()
+    
+    args.path = os.path.expanduser("~/Desktop") if not args.path else args.path
     
     if not args.load:
         print("Creating temp icns")
@@ -17,7 +20,7 @@ def main():
         os.system("open -Wna Preview data/temp.icns")
         print("Closing Preview")
 
-    folders = [i[0].replace(" ", "\\ ") for i in os.walk(os.path.expanduser("~/Desktop"))]
+    folders = [i[0].replace(" ", "\\ ") for i in os.walk(args.path)]
 
     if args.clean:
         print("Removing old icons")
