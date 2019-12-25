@@ -1,6 +1,6 @@
 # Chroma-Folder
 
-A simple application that allows easy color changes of Mac folder icons.
+Tool that allows easy color changes of Mac folder icons.
 
 ## CLI Usage
 
