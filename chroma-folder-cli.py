@@ -2,6 +2,7 @@ import subprocess
 import os
 import argparse
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--load", help="The file to load the config from")
@@ -9,9 +10,9 @@ def main():
     parser.add_argument("-p", "--path", help="The path to change folder icons in")
     parser.add_argument("-c", "--clean", help="Strip all custom icons from folders before applying new ones", action="store_true")
     args = parser.parse_args()
-    
+
     args.path = os.path.expanduser("~/Desktop") if not args.path else args.path
-    
+
     if not args.load:
         print("Creating temp icns")
         subprocess.call("cp data/default.icns data/temp.icns", shell=True)
@@ -26,7 +27,7 @@ def main():
         print("Removing old icons")
         [subprocess.call("fileicon remove %s" % f, shell=True) for f in folders]
 
-    print("Adding new icons")
+    print("Setting new icons")
     [subprocess.call("fileicon set %s data/%s.icns " % (f, "temp" if not args.load else args.load.split(".")[0]), shell=True) for f in folders]
 
     if args.save:
