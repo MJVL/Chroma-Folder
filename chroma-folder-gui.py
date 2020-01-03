@@ -12,6 +12,7 @@ class ChromaGUI(QMainWindow):
         self.savename = None
         self.initUI()
     
+
     def initUI(self):
         self.resize(241, 129)
         self.setWindowTitle("Chroma Folder")
@@ -77,7 +78,7 @@ class ChromaGUI(QMainWindow):
             folders = [i[0].replace(" ", "\\ ") for i in os.walk(self.txtDir.text())]
 
             print("Setting new icons")
-            [subprocess.call("fileicon set %s %s " % (f, "data/temp.icns" if not self.filename else self.filename), shell=True) for f in folders]
+            [subprocess.call("./src/fileicon set %s %s " % (f, "data/temp.icns" if not self.filename else self.filename), shell=True) for f in folders]
     
             if self.savename:
                 print("Saving config: %s.icns" % self.savename.split(".")[0])

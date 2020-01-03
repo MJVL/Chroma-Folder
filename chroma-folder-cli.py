@@ -25,10 +25,10 @@ def main():
 
     if args.clean:
         print("Removing old icons")
-        [subprocess.call("fileicon remove %s" % f, shell=True) for f in folders]
+        [subprocess.call("./src/fileicon remove %s" % f, shell=True) for f in folders]
 
     print("Setting new icons")
-    [subprocess.call("fileicon set %s data/%s.icns " % (f, "temp" if not args.load else args.load.split(".")[0]), shell=True) for f in folders]
+    [subprocess.call("./src/fileicon set %s data/%s.icns " % (f, "temp" if not args.load else args.load.split(".")[0]), shell=True) for f in folders]
 
     if args.save:
         print("Saving config: %s.icns" % args.save.split(".")[0])
