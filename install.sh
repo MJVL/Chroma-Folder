@@ -5,7 +5,9 @@ install_xcode() {
         echo "XCode is already installed."
     else
         echo "XCode is not installed. Installing."
-        xcode-select --install
+        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+        sudo xcodebuild -license
+        sudo xcode-select --install
     fi
 }
 
@@ -13,7 +15,7 @@ install_homebrew() {
     echo "Checking for Homebrew installation."
     which -s brew
     if [[ $? != 0 ]] ; then
-        echo "Homebrew was not found. Installing."
+        echo "Homebrew was not found. Inst alling."
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     else
         echo "Homebrew was found. Updating."
