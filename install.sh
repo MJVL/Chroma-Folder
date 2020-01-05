@@ -1,13 +1,11 @@
 #!/bin/bash
 
-install_xcode() {
+install_xcode_tools() {
     if type xcode-select >&- && xpath=$( xcode-select --print-path ) && test -d "${xpath}" && test -x "${xpath}" ; then
-        echo "XCode is already installed."
+        echo "XCode tools are already installed."
     else
-        echo "XCode is not installed. Installing."
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-        sudo xcodebuild -license
-        sudo xcode-select --install
+        echo "XCode tools are not installed. Installing."
+        xcode-select --install
     fi
 }
 
@@ -32,7 +30,7 @@ brew_install () {
     fi
 }
 
-install_xcode
+install_xcode_tools
 install_homebrew
 brew_install python3
 
