@@ -25,4 +25,7 @@ cd Chroma-Folder
 chmod +x src/fileicon
 pip3 install pyqt5 pyshortcuts
 pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
+mv ~/Desktop/Chroma\ Folder.app ~/Applications/Chroma\ Folder.app
 ```
+
+These commands are run assuming you already have Python 3 and XCode Command Line Tools installed. For a full setup that installs XCode, Homebrew, and Python 3, run `install.sh`.
