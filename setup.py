@@ -1,14 +1,19 @@
-import subprocess
-import sys
+from setuptools import setup
 
+APP = ['chroma-folder-gui.py']
+DATA_FILES = ['src', 'data']
+OPTIONS = {
+    'iconfile': 'src/icon.icns',
+    'argv_emulation': True
+}
 
-def main():
-    if not (sys.version_info > (3, 0)):
-        print("Please install Python 3 to continue.")
-        exit(1)
-    subprocess.call("chmod +x ./src/fileicon", shell=True)
-    subprocess.call("pip3 install pyqt5", shell=True)
-
-
-if __name__ == "__main__":
-    main()
+setup(
+    app=APP,
+    data_files=DATA_FILES,
+    options={'py2app': OPTIONS},
+    install_requires = [
+           "pyqt5 >= 5.14.0",
+           "sip >= 5.0.1"
+    ],
+    setup_requires=['py2app'],
+)
