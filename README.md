@@ -15,3 +15,14 @@ optional arguments:
   -c, --clean           Strip all custom icons from folders before applying
                         new ones
 ```
+
+## GUI Installation
+
+```Bash
+cd ~/Documents
+git clone git@github.com:MJVL/Chroma-Folder.git
+cd ~/Chroma-Folder
+chmod +x src/fileicon
+pip3 install pyqt5 pyshortcuts
+pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
+```

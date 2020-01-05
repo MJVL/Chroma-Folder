@@ -63,7 +63,9 @@ class ChromaGUI(QMainWindow):
         self.btnReset.clicked.connect(self.reset)
         self.chkLoad.stateChanged.connect(self.loadConfig)
         self.chkSave.stateChanged.connect(self.saveConfig)
-        
+
+        #print([d for d in os.listdir(self.txtDir.text()) if os.path.isdir(os.path.join(self.txtDir.text(), d))])
+            
 
     def change(self):
         if os.path.isdir(self.txtDir.text()):
@@ -76,6 +78,7 @@ class ChromaGUI(QMainWindow):
                 print("Closing Preview")
                 
             folders = [i[0].replace(" ", "\\ ") for i in os.walk(self.txtDir.text())]
+            print(folders)
 
             print("Setting new icons")
             [subprocess.call("./src/fileicon set %s %s " % (f, "data/temp.icns" if not self.filename else self.filename), shell=True) for f in folders]
@@ -87,6 +90,13 @@ class ChromaGUI(QMainWindow):
             if not self.filename:
                 print("Cleaning up temp icns")
                 subprocess.call("rm data/temp.icns", shell=True)
+
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setText("Successfully changed iconos.")
+            msgBox.setWindowTitle("Icon Success")
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            returnValue = msgBox.exec()
         else:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Warning)
@@ -132,6 +142,7 @@ class ChromaGUI(QMainWindow):
 
 
 def main():
+    os.chdir(os.path.expanduser("~/Documents/Chroma-Folder"))
     app = QApplication(sys.argv)
     win = ChromaGUI()
     win.show()
