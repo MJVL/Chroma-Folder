@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QInputDialog
 import subprocess
 import sys
 import os
+import glob
 
 class ChromaGUI(QMainWindow):
 
@@ -14,7 +15,7 @@ class ChromaGUI(QMainWindow):
     
 
     def initUI(self):
-        self.resize(241, 129)
+        self.setFixedSize(241, 129)
         self.setWindowTitle("Chroma Folder")
         
         self.btnChange = QtWidgets.QPushButton(self)
@@ -64,9 +65,6 @@ class ChromaGUI(QMainWindow):
         self.chkLoad.stateChanged.connect(self.loadConfig)
         self.chkSave.stateChanged.connect(self.saveConfig)
 
-        #print([d for d in os.listdir(self.txtDir.text()) if os.path.isdir(os.path.join(self.txtDir.text(), d))])
-            
-
     def change(self):
         if os.path.isdir(self.txtDir.text()):
             if not self.filename:
@@ -93,7 +91,7 @@ class ChromaGUI(QMainWindow):
 
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Warning)
-            msgBox.setText("Successfully changed iconos.")
+            msgBox.setText("Successfully changed icons.")
             msgBox.setWindowTitle("Icon Success")
             msgBox.setStandardButtons(QMessageBox.Ok)
             returnValue = msgBox.exec()

@@ -21,7 +21,7 @@ optional arguments:
 ```Bash
 cd ~/Documents
 git clone git@github.com:MJVL/Chroma-Folder.git
-cd ~/Chroma-Folder
+cd Chroma-Folder
 chmod +x src/fileicon
 pip3 install pyqt5 pyshortcuts
 pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
