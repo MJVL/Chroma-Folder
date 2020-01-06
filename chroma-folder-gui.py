@@ -146,6 +146,16 @@ class ChromaGUI(QMainWindow):
             self.chkLoad.setEnabled(True)
             self.savename = None
 
+    def keyPressEvent(self, e):
+        if e.key() == 16777251:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setText("Built by Michael Van Leeuwen")
+            msgBox.setInformativeText("Source code and license can be found in the following <a href='https://github.com/MJVL/Chroma-Folder'>GitHub repository</a>.")
+            msgBox.setWindowTitle("About")
+            msgBox.setStandardButtons(QMessageBox.Ok)
+            returnValue = msgBox.exec()
+
 
 def main():
     os.chdir(os.path.expanduser("~/Documents/Chroma-Folder"))
