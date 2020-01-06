@@ -70,6 +70,8 @@ install_xcode_tools
 echo ""
 install_homebrew
 echo ""
+sudo chown -R $(whoami) /usr/local/share/man/man6
+brew_install figlet
 brew_install python3
 echo ""
 chroma_install
