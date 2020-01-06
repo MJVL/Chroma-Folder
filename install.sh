@@ -1,11 +1,17 @@
 #!/bin/bash
 
-install_banner_tools() {
-    sudo gem install lolcat 
-    sudo gem install figlet
+install_gem() {
+    echo "Checking for gem $1 installation."
+    if ! gem spec $1 > /dev/null 2>&1; then
+        echo "Gem $1 was not found. Installing"
+        sudo gem install $1
+    else
+        echo "Gem $1 was found."
+    fi
 }
 
 install_xcode_tools() {
+    echo "Checking for XCode tools installation."
     if type xcode-select >&- && xpath=$( xcode-select --print-path ) && test -d "${xpath}" && test -x "${xpath}" ; then
         echo "XCode tools are already installed."
     else
@@ -26,26 +32,49 @@ install_homebrew() {
     fi
 }
 
-brew_install() {       
+brew_install() {
+    echo "Checking for formula $1 installation."       
     if brew ls --versions $1 > /dev/null; then
-        echo "$1 was found."
+        echo "$1 is found."
     else
         echo "$1 was not found. Installing."
         brew install $1
     fi
 }
 
-install_banner_tools
-install_xcode_tools
-install_homebrew
-brew_install python3
+chroma_install() {
+    echo "Cloning Chroma Folder repository."
+    cd ~/Documents
+    git clone https://github.com/MJVL/Chroma-Folder.git
+    cd Chroma-Folder
+    echo ""
+    echo "Setting permissions."
+    chmod +x src/fileicon
+    echo ""
+    echo "Installing pip packages."
+    pip3 install pyqt5 pyshortcuts
+    echo ""
+    pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
+    echo "Bundling the Application."
+    mv ~/Desktop/Chroma\ Folder.app ~/Applications/Chroma\ Folder.app
+    echo ""
+}
 
-cd ~/Documents
-git clone git@github.com:MJVL/Chroma-Folder.git
-cd Chroma-Folder
-chmod +x src/fileicon
-pip3 install pyqt5 pyshortcuts
-pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
-mv ~/Desktop/Chroma\ Folder.app ~/Applications/Chroma\ Folder.app
+clear
+echo "Starting Chroma Folder installation..."
+echo ""
+install_gem figlet
+install_gem lolcat
+echo ""
+install_xcode_tools
+echo ""
+install_homebrew
+echo ""
+brew_install python3
+echo ""
+chroma_install
+
+echo ""
 figlet Chroma Folder | lolcat --animate
+echo ""
 echo "Installation complete. Chroma Folder can now be found in your Applications."
