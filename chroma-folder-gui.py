@@ -77,6 +77,9 @@ class ChromaGUI(QMainWindow):
             
             folders = [i[0].replace(" ", "\\ ") for i in os.walk(self.txtDir.text()) if i[0].count("/") == self.txtDir.text().count("/") + 1 and ".app" not in i[0]]
 
+            print("Removing old icons")
+            [subprocess.call("./src/fileicon remove %s" % f, shell=True) for f in folders]
+
             print("Setting new icons")
             [subprocess.call("./src/fileicon set %s %s " % (f, "data/temp.icns" if not self.filename else self.filename), shell=True) for f in folders]
     
@@ -89,7 +92,7 @@ class ChromaGUI(QMainWindow):
                 subprocess.call("rm data/temp.icns", shell=True)
 
             msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Warning)
+            msgBox.setIcon(QMessageBox.Information)
             msgBox.setText("Successfully changed icons.")
             msgBox.setWindowTitle("Icon Success")
             msgBox.setStandardButtons(QMessageBox.Ok)
