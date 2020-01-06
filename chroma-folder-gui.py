@@ -74,9 +74,8 @@ class ChromaGUI(QMainWindow):
                 print("Opening Preview")
                 os.system("open -Wna Preview data/temp.icns")
                 print("Closing Preview")
-                
-            folders = [i[0].replace(" ", "\\ ") for i in os.walk(self.txtDir.text())]
-            print(folders)
+            
+            folders = [i[0].replace(" ", "\\ ") for i in os.walk(self.txtDir.text()) if i[0].count("/") == self.txtDir.text().count("/") + 1 and ".app" not in i[0]]
 
             print("Setting new icons")
             [subprocess.call("./src/fileicon set %s %s " % (f, "data/temp.icns" if not self.filename else self.filename), shell=True) for f in folders]
@@ -106,7 +105,9 @@ class ChromaGUI(QMainWindow):
     def reset(self):
         self.txtDir.setText(os.path.expanduser("~/Desktop"))
         self.chkLoad.setChecked(False)
+        self.chkLoad.setEnabled(True)
         self.chkSave.setChecked(False)
+        self.chkSave.setEnabled(True)
         self.filename = self.savename = None
         self.repaint()
 
@@ -128,14 +129,18 @@ class ChromaGUI(QMainWindow):
                 msgBox.setWindowTitle("Config Load Fail")
                 msgBox.setStandardButtons(QMessageBox.Ok)
                 returnValue = msgBox.exec()
+            self.chkSave.setEnabled(False)
         else:
+            self.chkSave.setEnabled(True)
             self.filename = None
 
 
     def saveConfig(self):
         if self.chkSave.isChecked():
             self.savename = QInputDialog.getText(self, "Save Config","Config name:", QLineEdit.Normal, "")[0].split(".")[0] + ".icns"
+            self.chkLoad.setEnabled(False)
         else:
+            self.chkLoad.setEnabled(True)
             self.savename = None
 
 
