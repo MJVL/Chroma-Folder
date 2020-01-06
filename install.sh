@@ -1,5 +1,10 @@
 #!/bin/bash
 
+install_banner_tools() {
+    sudo gem install lolcat 
+    sudo gem install figlet
+}
+
 install_xcode_tools() {
     if type xcode-select >&- && xpath=$( xcode-select --print-path ) && test -d "${xpath}" && test -x "${xpath}" ; then
         echo "XCode tools are already installed."
@@ -13,7 +18,7 @@ install_homebrew() {
     echo "Checking for Homebrew installation."
     which -s brew
     if [[ $? != 0 ]] ; then
-        echo "Homebrew was not found. Inst alling."
+        echo "Homebrew was not found. Installing."
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     else
         echo "Homebrew was found. Updating."
@@ -21,7 +26,7 @@ install_homebrew() {
     fi
 }
 
-brew_install () {       
+brew_install() {       
     if brew ls --versions $1 > /dev/null; then
         echo "$1 was found."
     else
@@ -30,6 +35,7 @@ brew_install () {
     fi
 }
 
+install_banner_tools
 install_xcode_tools
 install_homebrew
 brew_install python3
@@ -41,3 +47,5 @@ chmod +x src/fileicon
 pip3 install pyqt5 pyshortcuts
 pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
 mv ~/Desktop/Chroma\ Folder.app ~/Applications/Chroma\ Folder.app
+figlet Chroma Folder | lolcat --animate
+echo "Installation complete. Chroma Folder can now be found in your Applications."
