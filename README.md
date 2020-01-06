@@ -16,7 +16,9 @@ optional arguments:
                         new ones
 ```
 
-## GUI Installation
+## GUI Usage & Installation
+
+Running the following commands or simply running `install.sh` will install a shortcut to the script within your Applications folder. This will launch the PyQt5 based GUI version of the tool.
 
 ```Bash
 cd ~/Documents
