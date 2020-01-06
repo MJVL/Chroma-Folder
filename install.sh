@@ -40,6 +40,7 @@ brew_install() {
         echo "$1 was not found. Installing."
         brew install $1
     fi
+    sudo chown -R $(whoami) /usr/local/share/man/man6
 }
 
 chroma_install() {
@@ -56,7 +57,8 @@ chroma_install() {
     echo ""
     pyshortcut chroma-folder-gui.py -n Chroma\ Folder -i src/icon.icns -d
     echo "Bundling the Application."
-    mv ~/Desktop/Chroma\ Folder.app ~/Applications/Chroma\ Folder.app
+    mv ~/Desktop/Chroma\ Folder.app /Applications/Chroma\ Folder.app
+    chmod -R 755 /Applications/Chroma\ Folder.app
     echo ""
 }
 
@@ -70,13 +72,11 @@ install_xcode_tools
 echo ""
 install_homebrew
 echo ""
-sudo chown -R $(whoami) /usr/local/share/man/man6
 brew_install figlet
 brew_install python3
 echo ""
 chroma_install
 
-echo ""
 figlet Chroma Folder | lolcat --animate
 echo ""
 echo "Installation complete. Chroma Folder can now be found in your Applications."
